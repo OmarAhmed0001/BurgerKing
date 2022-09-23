@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/header.ejs') %>
+
+    <body>
+        <!-- Nav Bar Start -->
+        <%- include('./partials/nav.ejs') %>
+            <!-- Nav Bar End -->
+
+
+            <!-- Page Header Start -->
+            <div class="page-header mb-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            
+                            <h2 <%if (editingc) {%> style="width: 20rem; max-width: 90%; margin: auto; margin-bottom: 50px; margin-top: 50px;" <% } %>  >
+                                <%= pageTitle %>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Header End -->
+            <main>
+                <form style="width: 20rem; max-width: 90%; margin: auto;" action='/<%if (editingc) {%>admin/updatecategory<% }else {%>admin/addcategory<% } %>' method="post">
+                    <div class="form-controls">
+                        Category name:<input type="text" name="Categoryname" value="<%if (editingc) {%><%=category.Categoryname%><% } %>">
+                    </div>
+                    <div class="form-controls">
+                        Category image:<input type="file" name="Categoryimge" value="<%if (editingc) {%><%=category.Categoryimge%><% } %>">
+                    </div>
+                    <%if (editingc) { %>
+                            <input type="hidden" value="<%= category._id%>" name="catid">
+                        <% } %>
+
+                            <button type="submit" class="btn custom-btn" style="width: 100px ;height: 50px;">
+                            <%if (editingc) {%>Update <% }else {%> Insert <%}%></button>
+
+                </form>
+            </main>
+            <%- include('./partials/footer.ejs') %>
+
+    </body>
+
+</html>

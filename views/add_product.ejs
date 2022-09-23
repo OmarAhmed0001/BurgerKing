@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+    <body>
+        <!-- Nav Bar Start -->
+        <%- include('./partials/nav.ejs') %>
+            <!-- Nav Bar End -->
+            <!-- Page Header Start -->
+            <div class="page-header mb-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 <%if (editingp) {%> style="width: 20rem; max-width: 90%; margin: auto; margin-bottom: 50px; margin-top: 50px;" <% } %>  >
+                                <%= pageTitle %>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Header End -->
+            <main>
+                
+                <form style="width: 20rem; max-width: 90%; margin: auto;" action='/<%if (editingp) {%>admin/updateproduct<% }else {%>admin/addproduct<% } %>' method="post">
+                    <!-- <% console.log(Category) %> -->
+                        <div class="form-controls">
+                            product name:<input type="text" name="Productname " value="<%if (editingp) {%><%=pro.Productname%><% } %>"> 
+                        </div>
+                        <div class="form-controls">
+                            product price:<input type="text" name="Productprice" value="<%if (editingp) {%><%=pro.Productprice%><% } %>">
+                        </div>
+                        <div class="form-controls">
+
+                            product discription:<input type="text" name="Productdiscription" value="<%if (editingp) {%><%=pro.Productdescription%><% } %>">
+                        </div>
+                        <div class="form-controls">
+
+                            product image:<input type="file" name="Productimge" value="<%if (editingp) {%><%=pro.Productimge%><% } %>">
+                        </div>
+                        <div class="form-controls">
+
+                            Category name: <select name="Productccategory">
+                                <% Category.forEach(cat => { %>
+                                    <option value="<%= cat.Categoryname%>"> <%= cat.Categoryname%> </option>
+                                <% }) %> 
+                            </select>
+                            <%if (editingp) { %>
+                            <input type="hidden" value="<%=pro._id%>" name="proID">
+                            <% } %> 
+                        </div>
+                        <button type="submit" class="btn custom-btn" style="width: 100px ;height: 50px;">
+                            <%if (editingp) {%>Update <% }else {%> Insert <%}%></button>
+                </form>
+            </main>
+            <%- include('./partials/footer.ejs') %>
+    </body>
+</html>
